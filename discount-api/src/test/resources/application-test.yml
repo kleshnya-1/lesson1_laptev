@@ -1,0 +1,22 @@
+eureka:
+  client:
+    enabled: false
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  cloud:
+    discovery:
+      enabled: false
+  config:
+    enabled: false
+    uri: http://localhost:0
+    import: "optional:configserver:"
+
+resilience4j:
+  ratelimiter:
+    configs:
+      default:
+        limitForPeriod: 100
+        limitRefreshPeriod: 1s
+        timeoutDuration: 5s
