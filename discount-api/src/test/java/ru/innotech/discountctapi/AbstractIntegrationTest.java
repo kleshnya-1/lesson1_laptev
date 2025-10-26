@@ -1,4 +1,4 @@
-package ru.innotech.productapi.adapters.controller;
+package ru.innotech.discountctapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +15,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import ru.innotech.productapi.ProductApiApplication;
-import ru.innotech.productapi.adapters.repository.ProductRepository;
+import ru.innotech.productapi.adapters.repository.DiscountRepository;
 
 @Testcontainers
 @AutoConfigureMockMvc
@@ -32,7 +32,7 @@ public abstract class AbstractIntegrationTest {
     protected MockMvc mockMvc;
 
     @Autowired
-    protected ProductRepository productRepository;
+    protected DiscountRepository discountRepository;
 
     @Autowired
     protected ObjectMapper objectMapper;
@@ -53,6 +53,6 @@ public abstract class AbstractIntegrationTest {
 
     @BeforeEach
     public void init() {
-        productRepository.deleteAll();
+        discountRepository.deleteAll();
     }
 }

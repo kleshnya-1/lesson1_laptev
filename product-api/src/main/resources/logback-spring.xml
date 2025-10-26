@@ -1,6 +1,6 @@
 <configuration scan="true" scanPeriod="30 seconds" packagingData="true">
     <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="app"/>
-    <springProperty scope="context" name="LOG_FILE" source="logging.file.name" defaultValue="logs/product-api.log"/>
+    <springProperty scope="context" name="LOG_FILE" source="logging.file.name" defaultValue="logs/discount-api.log"/>
     <springProperty scope="context" name="ROOT_LEVEL" source="logging.level.root" defaultValue="INFO"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -20,9 +20,9 @@
     </appender>
 
     <appender name="FILE_JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/product-api.log</file>
+        <file>logs/discount-api.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>logs/product-api.log.%d{yyyy-MM-dd}.%i.json.gz</fileNamePattern>
+            <fileNamePattern>logs/discount-api.log.%d{yyyy-MM-dd}.%i.json.gz</fileNamePattern>
             <maxFileSize>100MB</maxFileSize>
             <maxHistory>30</maxHistory>
             <totalSizeCap>2GB</totalSizeCap>

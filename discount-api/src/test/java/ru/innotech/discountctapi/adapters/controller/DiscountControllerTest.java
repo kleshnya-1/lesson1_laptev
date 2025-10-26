@@ -9,22 +9,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import ru.innotech.productapi.ProductTestUtil;
+import ru.innotech.discountctapi.AbstractIntegrationTest;
+import ru.innotech.productapi.DiscountTestUtil;
 import ru.innotech.productapi.adapters.discount.dto.DiscountResponse;
-import ru.innotech.productapi.core.model.Product;
+import ru.innotech.productapi.core.model.Discount;
+
 
 import java.math.BigDecimal;
 import java.util.List;
 
-class ProductControllerTest extends AbstractIntegrationTest {
+class DiscountControllerTest extends AbstractIntegrationTest {
 
     @Test
     @DisplayName("\"интеграционные тесты для тестирования бд\" включены в этот тест")
     void whenGetAllDiscountsThenSuccessTest() throws Exception {
-        Product product1 = ProductTestUtil.product1Mock();
-        Product product2 = ProductTestUtil.product2Mock();
-        productRepository.save(product1);
-        productRepository.save(product2);
+        Discount discount1 = DiscountTestUtil.product1Mock();
+        Discount discount2 = DiscountTestUtil.product2Mock();
+        discountRepository.save(discount1);
+        discountRepository.save(discount2);
 
         String jsonResponse = mockMvc
                 .perform(
@@ -37,14 +39,14 @@ class ProductControllerTest extends AbstractIntegrationTest {
                 .getContentAsString();
         List<DiscountResponse> discountResponse = objectMapper.readValue(jsonResponse, new TypeReference<>() {});
         BigDecimal product1DiscountActual = discountResponse.stream()
-                .filter(dr -> dr.productId().equals(product1.getId()))
+                .filter(dr -> dr.productId().equals(discount1.getProductId()))
                 .findFirst()
                 .get().discount();
         BigDecimal product2DiscountActual = discountResponse.stream()
-                .filter(dr -> dr.productId().equals(product2.getId()))
+                .filter(dr -> dr.productId().equals(discount2.getProductId()))
                 .findFirst()
                 .get().discount();
-        Assertions.assertEquals(product1.getDiscount(), product1DiscountActual);
-        Assertions.assertEquals(product2.getDiscount(), product2DiscountActual);
+        Assertions.assertEquals(0, discount1.getDiscount().compareTo(product1DiscountActual));
+        Assertions.assertEquals(0, discount2.getDiscount().compareTo(product2DiscountActual));
     }
 }

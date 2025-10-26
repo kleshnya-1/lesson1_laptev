@@ -1,6 +1,5 @@
 package ru.innotech.productapi.core.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,27 +20,20 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "products")
+@Table(name = "discounts")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Product {
+public class Discount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    private String description;
-
-    private BigDecimal price;
-
-    @Column(nullable = false, length = 3)
-    private String currency;
+    private Long productId;
 
     private LocalDateTime createdAt;
 
@@ -49,19 +41,11 @@ public class Product {
 
     private BigDecimal discount;
 
-    @Enumerated(EnumType.STRING)
-    private ProductStatus status;
 
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = createdAt;
-        if (status == null) {
-            status = ProductStatus.ACTIVE;
-        }
-        if (discount == null) {
-            discount = BigDecimal.ZERO;
-        }
     }
 
     @PreUpdate
